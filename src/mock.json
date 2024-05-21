@@ -1,0 +1,58 @@
+[
+  {
+    "id": "a1b2c3d4-e5f6-7g8h-i9j0-k1l2m3n4o5p",
+    "category": "식료품",
+    "date": "2024-03-15",
+    "cost": 60000,
+    "description": "주간 식료품 쇼핑"
+  },
+  {
+    "id": "q6r7s8t9-u0v1-2w3x-4y5z-a6b7c8d9e0",
+    "category": "식료품",
+    "date": "2024-03-22",
+    "cost": 68000,
+    "description": "주간 식료품 구매"
+  },
+  {
+    "id": "f1g2h3i4-j5k6-7l8m-n9o0-p1q2r3s4t5",
+    "category": "공공요금",
+    "date": "2024-03-01",
+    "cost": 147000,
+    "description": "전기 요금"
+  },
+  {
+    "id": "u6v7w8x9-y0a1-b2c3-d4e5-f6g7h8i9j0",
+    "category": "공공요금",
+    "date": "2024-03-01",
+    "cost": 59000,
+    "description": "수도 요금"
+  },
+  {
+    "id": "k1l2m3n4-o5p6-7q8r-s9t0-u1v2w3x4y5",
+    "category": "엔터테인먼트",
+    "date": "2024-04-10",
+    "cost": 39000,
+    "description": "Netflix 구독료"
+  },
+  {
+    "id": "z6a7b8c9-d0e1-2f3g-h4i5-j6k7l8m9n0",
+    "category": "엔터테인먼트",
+    "date": "2024-04-15",
+    "cost": 20000,
+    "description": "영화 티켓"
+  },
+  {
+    "id": "o1p2q3r4-s5t6-7u8v-w9x0-a1b2c3d4e5",
+    "category": "교통",
+    "date": "2024-04-20",
+    "cost": 46000,
+    "description": "차량 연료"
+  },
+  {
+    "id": "f6g7h8i9-j0k1-2l3m-n4o5-p6q7r8s9t0",
+    "category": "교통",
+    "date": "2024-04-25",
+    "cost": 33000,
+    "description": "Uber 이용"
+  }
+]
