@@ -34,6 +34,9 @@ const StForm = styled.form`
   flex-direction: column;
   justify-content: flex-start;
   gap: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  padding: 2rem;
 `;
 
 const StBtns = styled.div`
