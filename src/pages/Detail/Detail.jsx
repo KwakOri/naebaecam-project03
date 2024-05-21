@@ -23,9 +23,7 @@ const Detail = ({ spendingList, setSpendingList }) => {
   };
 
   const { id } = useParams();
-  const spendingDetail = spendingList.find((item) => {
-    return item.id === id;
-  });
+  const spendingDetail = spendingList.find((item) => item.id === id);
 
   useEffect(() => {
     setInputs(() => {
