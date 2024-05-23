@@ -1,12 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Input } from "../../components";
+import { myContext } from "../../context/context";
 import { getDate, validateInputs } from "../../util";
 import { StBtns, StButton, StDiv, StForm } from "./Detail.styled";
 
-const Detail = ({ spendingList, setSpendingList }) => {
+const Detail = () => {
+  const { spendingList, setSpendingList } = useContext(myContext);
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({
     date: getDate(),

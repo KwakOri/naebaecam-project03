@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types */
+import { useContext } from "react";
+import { myContext } from "../../context/context";
 import { StUl } from "./Calendar.styled";
 
-const Calendar = ({ selectedMonth, setSelectedMonth }) => {
+const Calendar = () => {
+  const { selectedMonth, setSelectedMonth } = useContext(myContext);
   const onClick = (e) => {
     setSelectedMonth(Number(e.target.id));
     localStorage.setItem("lastSelectedMonth", e.target.id);

@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Input } from "../";
+import { myContext } from "../../context/context";
 import { getDate, validateInputs } from "../../util";
 import { StButton, StForm } from "./Form.styled";
 
-const Form = ({ setSpendingList }) => {
+const Form = () => {
+  const { setSpendingList } = useContext(myContext);
   const [inputs, setInputs] = useState({
     date: getDate(),
     category: "",

@@ -1,8 +1,11 @@
 /* eslint-disable react/prop-types */
+import { useContext } from "react";
+import { myContext } from "../../context/context";
 import { SpendingItem } from "./SpendingItem";
 import { NoResult, StLink, StUl } from "./SpendingList.styled";
 
-const SpendingList = ({ selectedMonth, spendingList }) => {
+const SpendingList = () => {
+  const { selectedMonth, spendingList } = useContext(myContext);
   const filteredSpendingList = spendingList.filter(
     (spending) => new Date(spending.date).getMonth() + 1 === selectedMonth
   );
