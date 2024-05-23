@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
-import { useContext } from "react";
-import { myContext } from "../../context/context";
+import { useDispatch, useSelector } from "react-redux";
+import { setMonth } from "../../redux/spendingListSlice";
 import { StUl } from "./Calendar.styled";
 
 const Calendar = () => {
-  const { selectedMonth, setSelectedMonth } = useContext(myContext);
+  const dispatch = useDispatch();
+  const selectedMonth = useSelector((state) => state.spendingList.month);
   const onClick = (e) => {
-    setSelectedMonth(Number(e.target.id));
+    dispatch(setMonth(e.target.id));
     localStorage.setItem("lastSelectedMonth", e.target.id);
   };
 

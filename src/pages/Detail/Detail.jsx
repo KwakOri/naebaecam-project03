@@ -1,75 +1,40 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { Input } from "../../components";
-import { myContext } from "../../context/context";
-import { getDate, validateInputs } from "../../util";
+import { deleteRecord, modifyRecord } from "../../redux/spendingListSlice";
+import { validateInputs } from "../../util";
 import { StBtns, StButton, StDiv, StForm } from "./Detail.styled";
 
 const Detail = () => {
-  const { spendingList, setSpendingList } = useContext(myContext);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const spendingList = useSelector((state) => state.spendingList.list);
   const navigate = useNavigate();
-  const [inputs, setInputs] = useState({
-    date: getDate(),
-    category: "",
-    cost: "",
-    description: "",
-  });
-
-  const { date, category, cost, description } = inputs;
+  const [inputs, setInputs] = useState(() =>
+    spendingList.find((item) => item.id === id)
+  );
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
-
-  const { id } = useParams();
-  const spendingDetail = spendingList.find((item) => item.id === id);
-
-  useEffect(() => {
-    setInputs({
-      date: spendingDetail.date,
-      category: spendingDetail.category,
-      cost: spendingDetail.cost,
-      description: spendingDetail.description,
-    });
-  }, []);
-
   const handleModifyBtn = (event) => {
     event.preventDefault();
-
     const isValid = validateInputs(inputs);
     if (!isValid.result) {
       return;
     }
-    setSpendingList((prev) => {
-      const _prev = [...prev];
-      const newSpendingList = _prev.map((item) => {
-        if (item.id === id) {
-          return {
-            ...inputs,
-            id,
-          };
-        }
-        return item;
-      });
-      localStorage.setItem("spendingList", JSON.stringify(newSpendingList));
-      return newSpendingList;
-    });
-
+    dispatch(modifyRecord({ id, newRecord: inputs }));
     navigate("/");
   };
   const handleCancelBtn = () => {
     navigate("/");
   };
-
   const handleDeleteBtn = () => {
-    setSpendingList((prev) => {
-      const newSpendingList = prev.filter((item) => item.id !== id);
-      localStorage.setItem("spendingList", JSON.stringify(newSpendingList));
-      return newSpendingList;
-    });
+    dispatch(deleteRecord({ id }));
     navigate("/");
   };
 
@@ -78,7 +43,7 @@ const Detail = () => {
       <StDiv>
         <StForm>
           <Input
-            value={date}
+            value={inputs.date}
             setValue={handleInputChange}
             type="text"
             name="date"
@@ -86,7 +51,7 @@ const Detail = () => {
           />
 
           <Input
-            value={category}
+            value={inputs.category}
             setValue={handleInputChange}
             type="text"
             name="category"
@@ -94,7 +59,7 @@ const Detail = () => {
           />
 
           <Input
-            value={cost}
+            value={inputs.cost}
             setValue={handleInputChange}
             type="number"
             name="cost"
@@ -102,7 +67,7 @@ const Detail = () => {
           />
 
           <Input
-            value={description}
+            value={inputs.description}
             setValue={handleInputChange}
             type="text"
             name="description"

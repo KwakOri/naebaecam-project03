@@ -1,13 +1,14 @@
 /* eslint-disable react/prop-types */
-import { useContext, useState } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { Input } from "../";
-import { myContext } from "../../context/context";
+import { addRecord } from "../../redux/spendingListSlice";
 import { getDate, validateInputs } from "../../util";
 import { StButton, StForm } from "./Form.styled";
 
 const Form = () => {
-  const { setSpendingList } = useContext(myContext);
+  const dispatch = useDispatch();
   const [inputs, setInputs] = useState({
     date: getDate(),
     category: "",
@@ -34,11 +35,9 @@ const Form = () => {
       }
       return;
     }
-    setSpendingList((prev) => {
-      const newSpendingList = [...prev, { ...inputs, id: uuidv4() }];
-      localStorage.setItem("spendingList", JSON.stringify(newSpendingList));
-      return newSpendingList;
-    });
+
+    dispatch(addRecord({ ...inputs, id: uuidv4() }));
+
     setInputs({
       date: getDate(),
       category: "",
