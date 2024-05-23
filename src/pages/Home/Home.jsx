@@ -10,7 +10,7 @@ const Home = ({ spendingList, setSpendingList }) => {
   useEffect(() => {
     const lastSelectedMonth = Number(localStorage.getItem("lastSelectedMonth"));
     setSelectedMonth(lastSelectedMonth);
-  }, []);
+  }, [selectedMonth]);
   return (
     <StDiv>
       <Form setSpendingList={setSpendingList} />

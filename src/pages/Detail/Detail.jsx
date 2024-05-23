@@ -26,13 +26,11 @@ const Detail = ({ spendingList, setSpendingList }) => {
   const spendingDetail = spendingList.find((item) => item.id === id);
 
   useEffect(() => {
-    setInputs(() => {
-      return {
-        date: spendingDetail.date,
-        category: spendingDetail.category,
-        cost: spendingDetail.cost,
-        description: spendingDetail.description,
-      };
+    setInputs({
+      date: spendingDetail.date,
+      category: spendingDetail.category,
+      cost: spendingDetail.cost,
+      description: spendingDetail.description,
     });
   }, []);
 
