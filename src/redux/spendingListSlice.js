@@ -21,7 +21,7 @@ const spendingListSlice = createSlice({
     addRecord: (state, action) => {
       // action.payload => {id:... , }
       state.list.push(action.payload);
-      // localStorage.setItem("list", JSON.stringify(state.list));
+      localStorage.setItem("spendingList", JSON.stringify(state.list));
     },
     modifyRecord: (state, action) => {
       //action.payload ={ id: XX, newRecord }
