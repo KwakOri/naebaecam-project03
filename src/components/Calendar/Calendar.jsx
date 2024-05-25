@@ -1,32 +1,31 @@
 /* eslint-disable react/prop-types */
+import { setMonth } from "@redux/spendingListSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { StUl } from "./Calendar.styled";
 
-const Calendar = ({ selectedMonth, setSelectedMonth }) => {
+const Calendar = () => {
+  const dispatch = useDispatch();
+  const selectedMonth = useSelector((state) => state.spendingList.month);
   const onClick = (e) => {
-    setSelectedMonth(() => {
-      return Number(e.target.id);
-    });
+    dispatch(setMonth(e.target.id));
     localStorage.setItem("lastSelectedMonth", e.target.id);
   };
 
-  const makeButtons = () => {
-    const buttons = [];
-    for (let i = 1; i <= 12; i++) {
-      buttons.push(
-        <li key={i}>
+  return (
+    <StUl>
+      {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
+        <li key={month}>
           <button
-            className={selectedMonth === i ? "selected" : null}
-            id={i}
+            id={month}
             onClick={onClick}
+            className={selectedMonth === month ? "selected" : ""}
           >
-            {i}월
+            {month}월
           </button>
         </li>
-      );
-    }
-    return buttons;
-  };
-  return <StUl>{makeButtons()}</StUl>;
+      ))}
+    </StUl>
+  );
 };
 
 export { Calendar };

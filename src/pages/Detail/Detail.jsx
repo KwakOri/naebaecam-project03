@@ -1,77 +1,40 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { Input } from "@components";
+import { deleteRecord, modifyRecord } from "@redux/spendingListSlice";
+import { validateInputs } from "@utils";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { Input } from "../../components";
-import { evaluateInputs, getDate } from "../../util";
 import { StBtns, StButton, StDiv, StForm } from "./Detail.styled";
 
-const Detail = ({ spendingList, setSpendingList }) => {
+const Detail = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const spendingList = useSelector((state) => state.spendingList.list);
   const navigate = useNavigate();
-  const [inputs, setInputs] = useState({
-    date: getDate(),
-    category: "",
-    cost: "",
-    description: "",
-  });
-
-  const { date, category, cost, description } = inputs;
+  const [inputs, setInputs] = useState(() =>
+    spendingList.find((item) => item.id === id)
+  );
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
-
-  const { id } = useParams();
-  const spendingDetail = spendingList.find((item) => {
-    return item.id === id;
-  });
-
-  useEffect(() => {
-    setInputs(() => {
-      return {
-        date: spendingDetail.date,
-        category: spendingDetail.category,
-        cost: spendingDetail.cost,
-        description: spendingDetail.description,
-      };
-    });
-  }, []);
-
   const handleModifyBtn = (event) => {
     event.preventDefault();
-
-    const isValid = evaluateInputs(inputs);
+    const isValid = validateInputs(inputs);
     if (!isValid.result) {
       return;
     }
-    setSpendingList((prev) => {
-      const _prev = [...prev];
-      const newSpendingList = _prev.map((item) => {
-        if (item.id === id) {
-          return {
-            ...inputs,
-            id,
-          };
-        }
-        return item;
-      });
-      localStorage.setItem("spendingList", JSON.stringify(newSpendingList));
-      return newSpendingList;
-    });
-
+    dispatch(modifyRecord({ id, newRecord: inputs }));
     navigate("/");
   };
   const handleCancelBtn = () => {
     navigate("/");
   };
-
   const handleDeleteBtn = () => {
-    setSpendingList((prev) => {
-      const newSpendingList = prev.filter((item) => item.id !== id);
-      localStorage.setItem("spendingList", JSON.stringify(newSpendingList));
-      return newSpendingList;
-    });
+    dispatch(deleteRecord({ id }));
     navigate("/");
   };
 
@@ -80,44 +43,44 @@ const Detail = ({ spendingList, setSpendingList }) => {
       <StDiv>
         <StForm>
           <Input
-            value={date}
+            value={inputs.date}
             setValue={handleInputChange}
             type="text"
             name="date"
-            displayedName={"날짜"}
+            label={"날짜"}
           />
 
           <Input
-            value={category}
+            value={inputs.category}
             setValue={handleInputChange}
             type="text"
             name="category"
-            displayedName={"항목"}
+            label={"항목"}
           />
 
           <Input
-            value={cost}
+            value={inputs.cost}
             setValue={handleInputChange}
             type="number"
             name="cost"
-            displayedName={"금액"}
+            label={"금액"}
           />
 
           <Input
-            value={description}
+            value={inputs.description}
             setValue={handleInputChange}
             type="text"
             name="description"
-            displayedName={"내용"}
+            label={"내용"}
           />
           <StBtns>
-            <StButton type={"modify"} onClick={handleModifyBtn}>
+            <StButton $type={"modify"} onClick={handleModifyBtn}>
               수정
             </StButton>
-            <StButton type={"delete"} onClick={handleDeleteBtn}>
+            <StButton $type={"delete"} onClick={handleDeleteBtn}>
               삭제
             </StButton>
-            <StButton type={"cancel"} onClick={handleCancelBtn}>
+            <StButton $type={"cancel"} onClick={handleCancelBtn}>
               취소
             </StButton>
           </StBtns>

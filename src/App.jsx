@@ -1,39 +1,13 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Detail, Home } from "./pages";
+import { router } from "@routes/router";
+import { RouterProvider } from "react-router-dom";
 
 function App() {
-  const [spendingList, setSpendingList] = useState(
-    JSON.parse(localStorage.getItem("spendingList"))
-  );
   return (
     <>
-      {/* <RouterProvider router={router} /> */}
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                spendingList={spendingList}
-                setSpendingList={setSpendingList}
-              />
-            }
-          />
-          <Route
-            path="/detail/:id"
-            element={
-              <Detail
-                spendingList={spendingList}
-                setSpendingList={setSpendingList}
-              />
-            }
-          />
-        </Routes>
-      </BrowserRouter>
+      <RouterProvider router={router}></RouterProvider>
     </>
   );
 }
 
-export default App;
+export { App };

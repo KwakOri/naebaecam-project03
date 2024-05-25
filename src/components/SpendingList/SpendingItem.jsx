@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { formatCost } from "../../util";
+import { formatCost } from "@utils";
 import { StSpendingItem } from "./SpendingList.styled";
 
 const SpendingItem = ({ item: { date, cost, description } }) => {

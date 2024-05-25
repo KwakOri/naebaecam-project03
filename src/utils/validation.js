@@ -1,4 +1,4 @@
-const evaluateInputs = ({ date, category, cost, description }) => {
+const validateInputs = ({ date, category, cost, description }) => {
   if (!date || !category || !cost || !description) {
     alert("모든 항목을 입력해주세요!");
     return { result: false, errorType: "empty" };
@@ -17,4 +17,4 @@ const evaluateInputs = ({ date, category, cost, description }) => {
   return { result: true };
 };
 
-export { evaluateInputs };
+export { validateInputs };
