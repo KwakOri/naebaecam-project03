@@ -14,21 +14,25 @@ const SpendingList = () => {
     (spending) => new Date(spending.date).getMonth() + 1 === selectedMonth
   );
 
+  // return부분을 두 개로 나누기
+
+  if (filteredSpendingList.length === 0) {
+    return (
+      <NoResult>
+        <p>검색 결과가 없습니다.</p>
+      </NoResult>
+    );
+  }
+
   return (
     <StUl>
-      {filteredSpendingList.length !== 0 ? (
-        filteredSpendingList.map((item) => (
-          <li key={item.id}>
-            <StLink to={`/detail/${item.id}`}>
-              <SpendingItem item={item} />
-            </StLink>
-          </li>
-        ))
-      ) : (
-        <NoResult>
-          <p>검색 결과가 없습니다.</p>
-        </NoResult>
-      )}
+      {filteredSpendingList.map((item) => (
+        <li key={item.id}>
+          <StLink to={`/detail/${item.id}`}>
+            <SpendingItem item={item} />
+          </StLink>
+        </li>
+      ))}
     </StUl>
   );
 };
