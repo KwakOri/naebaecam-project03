@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -23,16 +22,17 @@ const Detail = ({ spendingList, setSpendingList }) => {
   };
 
   const { id } = useParams();
-  const spendingDetail = spendingList.find((item) => item.id === id);
 
   useEffect(() => {
+    //
+    const spendingDetail = spendingList.find((item) => item.id === id);
     setInputs({
       date: spendingDetail.date,
       category: spendingDetail.category,
       cost: spendingDetail.cost,
       description: spendingDetail.description,
     });
-  }, []);
+  }, [spendingList]);
 
   const handleModifyBtn = (event) => {
     event.preventDefault();
