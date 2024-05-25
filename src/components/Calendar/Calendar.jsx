@@ -3,30 +3,25 @@ import { StUl } from "./Calendar.styled";
 
 const Calendar = ({ selectedMonth, setSelectedMonth }) => {
   const onClick = (e) => {
-    setSelectedMonth(() => {
-      return Number(e.target.id);
-    });
+    setSelectedMonth(Number(e.target.id));
     localStorage.setItem("lastSelectedMonth", e.target.id);
   };
 
-  const makeButtons = () => {
-    const buttons = [];
-    for (let i = 1; i <= 12; i++) {
-      buttons.push(
-        <li key={i}>
+  return (
+    <StUl>
+      {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
+        <li key={month}>
           <button
-            className={selectedMonth === i ? "selected" : null}
-            id={i}
+            id={month}
             onClick={onClick}
+            className={selectedMonth === month ? "selected" : ""}
           >
-            {i}월
+            {month}월
           </button>
         </li>
-      );
-    }
-    return buttons;
-  };
-  return <StUl>{makeButtons()}</StUl>;
+      ))}
+    </StUl>
+  );
 };
 
 export { Calendar };
