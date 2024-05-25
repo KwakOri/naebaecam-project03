@@ -1,5 +1,5 @@
+import mock from "@/mock.json";
 import { createSlice } from "@reduxjs/toolkit";
-import mock from "../mock.json";
 
 const getInitialList = () => {
   const localData = localStorage.getItem("spendingList");
@@ -19,12 +19,14 @@ const spendingListSlice = createSlice({
   },
   reducers: {
     addRecord: (state, action) => {
-      // action.payload => {id:... , }
+      // action.payload => {id:XXXX, }
+
       state.list.push(action.payload);
       localStorage.setItem("spendingList", JSON.stringify(state.list));
     },
     modifyRecord: (state, action) => {
-      //action.payload ={ id: XX, newRecord }
+      // action.payload => { id: XXXX, newRecord }
+
       const { id, newRecord } = action.payload;
       state.list = state.list.map((item) => {
         if (item.id === id) {
@@ -54,9 +56,3 @@ const spendingListSlice = createSlice({
 export default spendingListSlice;
 export const { modifyRecord, addRecord, deleteRecord, setMonth } =
   spendingListSlice.actions;
-
-// setSpendingList((prev) => {
-//   const newSpendingList = prev.filter((item) => item.id !== id);
-//   localStorage.setItem("spendingList", JSON.stringify(newSpendingList));
-//   return newSpendingList;
-// });

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
+import { router } from "@routes/router";
 import { RouterProvider } from "react-router-dom";
-import { router } from "./routes/router";
 
 function App() {
   return (
@@ -10,4 +10,4 @@ function App() {
   );
 }
 
-export default App;
+export { App };

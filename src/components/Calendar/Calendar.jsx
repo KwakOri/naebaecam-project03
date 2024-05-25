@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
+import { setMonth } from "@redux/spendingListSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { setMonth } from "../../redux/spendingListSlice";
 import { StUl } from "./Calendar.styled";
 
 const Calendar = () => {

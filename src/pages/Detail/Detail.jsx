@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
+import { Input } from "@components";
+import { deleteRecord, modifyRecord } from "@redux/spendingListSlice";
+import { validateInputs } from "@utils";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { Input } from "../../components";
-import { deleteRecord, modifyRecord } from "../../redux/spendingListSlice";
-import { validateInputs } from "../../util";
 import { StBtns, StButton, StDiv, StForm } from "./Detail.styled";
 
 const Detail = () => {
@@ -74,13 +74,13 @@ const Detail = () => {
             label={"내용"}
           />
           <StBtns>
-            <StButton type={"modify"} onClick={handleModifyBtn}>
+            <StButton $type={"modify"} onClick={handleModifyBtn}>
               수정
             </StButton>
-            <StButton type={"delete"} onClick={handleDeleteBtn}>
+            <StButton $type={"delete"} onClick={handleDeleteBtn}>
               삭제
             </StButton>
-            <StButton type={"cancel"} onClick={handleCancelBtn}>
+            <StButton $type={"cancel"} onClick={handleCancelBtn}>
               취소
             </StButton>
           </StBtns>

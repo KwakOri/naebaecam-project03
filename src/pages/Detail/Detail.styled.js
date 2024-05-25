@@ -6,8 +6,8 @@ const StButton = styled.button`
   height: 32px;
   border-radius: 6px;
   border: none;
-  background-color: ${(props) => {
-    switch (props.type) {
+  background-color: ${({ $type }) => {
+    switch ($type) {
       case "modify":
         return "orange";
       case "delete":

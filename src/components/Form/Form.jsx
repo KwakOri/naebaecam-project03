@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
+import { Input } from "@components";
+import { addRecord } from "@redux/spendingListSlice";
+import { getDate, validateInputs } from "@utils";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import { Input } from "../";
-import { addRecord } from "../../redux/spendingListSlice";
-import { getDate, validateInputs } from "../../util";
 import { StButton, StForm } from "./Form.styled";
 
 const Form = () => {
