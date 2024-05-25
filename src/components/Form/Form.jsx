@@ -32,11 +32,13 @@ const Form = ({ setSpendingList }) => {
       }
       return;
     }
+
     setSpendingList((prev) => {
       const newSpendingList = [...prev, { ...inputs, id: uuidv4() }];
       localStorage.setItem("spendingList", JSON.stringify(newSpendingList));
       return newSpendingList;
     });
+    
     setInputs({
       date: getDate(),
       category: "",

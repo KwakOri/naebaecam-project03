@@ -15,24 +15,11 @@ const Detail = ({ spendingList, setSpendingList }) => {
   });
 
   const { date, category, cost, description } = inputs;
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
-
   const { id } = useParams();
-
-  useEffect(() => {
-    //
-    const spendingDetail = spendingList.find((item) => item.id === id);
-    setInputs({
-      date: spendingDetail.date,
-      category: spendingDetail.category,
-      cost: spendingDetail.cost,
-      description: spendingDetail.description,
-    });
-  }, [spendingList]);
 
   const handleModifyBtn = (event) => {
     event.preventDefault();
@@ -70,6 +57,17 @@ const Detail = ({ spendingList, setSpendingList }) => {
     });
     navigate("/");
   };
+  // useRef 사용하기
+  useEffect(() => {
+    //
+    const spendingDetail = spendingList.find((item) => item.id === id);
+    setInputs({
+      date: spendingDetail.date,
+      category: spendingDetail.category,
+      cost: spendingDetail.cost,
+      description: spendingDetail.description,
+    });
+  }, [spendingList]);
 
   return (
     <>
