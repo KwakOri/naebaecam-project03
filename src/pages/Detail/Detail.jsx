@@ -1,12 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Input } from "../../components";
-import { evaluateInputs, getDate } from "../../util";
+import { myContext } from "../../context/context";
+import { getDate, validateInputs } from "../../util";
 import { StBtns, StButton, StDiv, StForm } from "./Detail.styled";
 
-const Detail = ({ spendingList, setSpendingList }) => {
+const Detail = () => {
+  const { spendingList, setSpendingList } = useContext(myContext);
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({
     date: getDate(),
@@ -23,25 +25,21 @@ const Detail = ({ spendingList, setSpendingList }) => {
   };
 
   const { id } = useParams();
-  const spendingDetail = spendingList.find((item) => {
-    return item.id === id;
-  });
+  const spendingDetail = spendingList.find((item) => item.id === id);
 
   useEffect(() => {
-    setInputs(() => {
-      return {
-        date: spendingDetail.date,
-        category: spendingDetail.category,
-        cost: spendingDetail.cost,
-        description: spendingDetail.description,
-      };
+    setInputs({
+      date: spendingDetail.date,
+      category: spendingDetail.category,
+      cost: spendingDetail.cost,
+      description: spendingDetail.description,
     });
   }, []);
 
   const handleModifyBtn = (event) => {
     event.preventDefault();
 
-    const isValid = evaluateInputs(inputs);
+    const isValid = validateInputs(inputs);
     if (!isValid.result) {
       return;
     }
@@ -84,7 +82,7 @@ const Detail = ({ spendingList, setSpendingList }) => {
             setValue={handleInputChange}
             type="text"
             name="date"
-            displayedName={"날짜"}
+            label={"날짜"}
           />
 
           <Input
@@ -92,7 +90,7 @@ const Detail = ({ spendingList, setSpendingList }) => {
             setValue={handleInputChange}
             type="text"
             name="category"
-            displayedName={"항목"}
+            label={"항목"}
           />
 
           <Input
@@ -100,7 +98,7 @@ const Detail = ({ spendingList, setSpendingList }) => {
             setValue={handleInputChange}
             type="number"
             name="cost"
-            displayedName={"금액"}
+            label={"금액"}
           />
 
           <Input
@@ -108,7 +106,7 @@ const Detail = ({ spendingList, setSpendingList }) => {
             setValue={handleInputChange}
             type="text"
             name="description"
-            displayedName={"내용"}
+            label={"내용"}
           />
           <StBtns>
             <StButton type={"modify"} onClick={handleModifyBtn}>

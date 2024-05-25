@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Input } from "../";
-import { evaluateInputs, getDate } from "../../util";
+import { myContext } from "../../context/context";
+import { getDate, validateInputs } from "../../util";
 import { StButton, StForm } from "./Form.styled";
 
-const Form = ({ setSpendingList }) => {
+const Form = () => {
+  const { setSpendingList } = useContext(myContext);
   const [inputs, setInputs] = useState({
     date: getDate(),
     category: "",
@@ -23,7 +25,7 @@ const Form = ({ setSpendingList }) => {
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
-    const isValid = evaluateInputs(inputs);
+    const isValid = validateInputs(inputs);
     if (!isValid.result) {
       if (isValid.errorType === "invalidDate") {
         setInputs((prev) => {
@@ -51,7 +53,7 @@ const Form = ({ setSpendingList }) => {
         setValue={handleInputChange}
         type="text"
         name="date"
-        displayedName={"날짜"}
+        label={"날짜"}
       />
 
       <Input
@@ -59,7 +61,7 @@ const Form = ({ setSpendingList }) => {
         setValue={handleInputChange}
         type="text"
         name="category"
-        displayedName={"항목"}
+        label={"항목"}
         placeholder={"지출항목"}
       />
 
@@ -68,7 +70,7 @@ const Form = ({ setSpendingList }) => {
         setValue={handleInputChange}
         type="number"
         name="cost"
-        displayedName={"금액"}
+        label={"금액"}
         placeholder={"지출 금액"}
       />
 
@@ -77,7 +79,7 @@ const Form = ({ setSpendingList }) => {
         setValue={handleInputChange}
         type="text"
         name="description"
-        displayedName={"내용"}
+        label={"내용"}
         placeholder={"지출 내용"}
       />
       <StButton>저장</StButton>
